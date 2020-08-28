@@ -1,0 +1,35 @@
+
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Email</th>
+      <th scope="col">Username</th>
+      <th scope="col">Edit</th>
+       <th scope="col">Edit</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    {{#each user}}
+    <tr>
+      <th scope="row">{{this._id}}</th>
+      <td>{{this.email}}</td>
+      <td>{{this.username}}</td>
+      <td><form action="/admin/edit" method="post">
+      <input type="hidden" name="id" value="{{this._id}}">
+      <button type="submit">edit</button>
+      
+      </form></td>
+      <td><form action="/admin/delete" method="post">
+      <input type="hidden" name="id" value="{{this._id}}">
+      <button type="submit">delete</button>
+      </form></td>
+    </tr>
+    {{/each}}
+    
+  </tbody>
+</table>
+<form action="/logout" method="POST">
+<button type="submit">logout</button>
+</form>
