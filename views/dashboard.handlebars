@@ -1,7 +1,12 @@
 
-<table class="table table-hover table-dark">
+
+<!-- Search form -->
+<input class="form-control mb-5 mt-5" type="text" placeholder="username" 
+ id="myInput" onkeyup="SearchUser()">
+
+<table class="table table-hover table-dark" id="myTable">
   <thead>
-    <tr>
+    <tr id="tr">
       <th scope="col">id</th>
       <th scope="col">Email</th>
       <th scope="col">Username</th>
@@ -14,14 +19,14 @@
     {{#each user}}
     <tr>
       <th scope="row">{{this._id}}</th>
-      <td>{{this.email}}</td>
-      <td>{{this.username}}</td>
-      <td><form action="/admin/edit" method="post">
+      <td id="td">{{this.email}}</td>
+      <td id="td">{{this.username}}</td>
+      <td id="td"><form action="/admin/edit" method="post">
       <input type="hidden" name="id" value="{{this._id}}">
       <button type="submit">edit</button>
       
       </form></td>
-      <td><form action="/admin/delete" method="post">
+      <td id="td"><form action="/admin/delete" method="post">
       <input type="hidden" name="id" value="{{this._id}}">
       <button type="submit">delete</button>
       </form></td>
@@ -33,3 +38,23 @@
 <form action="/logout" method="POST">
 <button type="submit">logout</button>
 </form>
+<script>
+function SearchUser() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>

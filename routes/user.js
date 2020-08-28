@@ -35,14 +35,14 @@ router.post('/register',(req,res)=>{
         email:email
     });
     newUser.save();
-    res.redirect('/user/user');
+    res.redirect('/user');
 });
 
 
-router.get('/user',(req,res)=>{
+router.get('/',(req,res)=>{
     res.render('userLogin',{style:'userLogin.css'});
 });
-router.post('/user',(req,res)=>{
+router.post('/',(req,res)=>{
     const {username,password}=req.body;
     User.find({username:username,password:password}).lean().exec((err,data)=>{
         if(data){
@@ -50,12 +50,12 @@ router.post('/user',(req,res)=>{
             console.log(data.username);
             res.redirect('/user/dashboard');
         }else{
-            res.redirect('/user');
+            res.redirect('/user/user');
         }
     })
 });
 
-router.get('/user/dashboard',userDashboardChecker,(req,res)=>{
+router.get('/dashboard',userDashboardChecker,(req,res)=>{
     res.render('userDashboard');
 })
 
